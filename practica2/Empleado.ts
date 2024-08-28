@@ -122,12 +122,12 @@ export class ReporteDeSalario extends Reporte{
     }
 
     SalarioEmpleados(){
-        console.log(this.Encabezado());
+        //console.log(this.Encabezado());
         var totalSalario = 0;
         this.empleados.forEach(empleado => {
             totalSalario += empleado.CalculoSalarioEmpleado();
         });
-        console.log(`Se gasto en los empleados un total de : $${totalSalario}`)
+        //console.log(`Se gasto en los empleados un total de : $${totalSalario}`)
         return totalSalario
     }
 }
@@ -138,13 +138,13 @@ export class ReporteDeHoras extends Reporte{
     }
 
     HorasEmpleados(){
-        console.log(this.Encabezado());
+        //console.log(this.Encabezado());
         
         var totalHoras = 0;
         this.empleados.forEach(empleado => {
             totalHoras += empleado.getHoras();
         });
-        console.log(` Se trabajo en un total de ${totalHoras} en la compañia.`)        
+        //console.log(` Se trabajo en un total de ${totalHoras} en la compañia.`)        
         return totalHoras
     }
 
