@@ -16,22 +16,22 @@
 // }
 
 interface Salario{
-    Calculo() : number;
+    Calculo(e : Empleado) : number;
 }
 
 class SalarioPorHora implements Salario{
-    constructor(private tarifa: number , private horas: number){}
+    
+    constructor(){}
 
-    Calculo() {
-        return this.tarifa * this.horas
+    Calculo(e : Empleado) {
+        return e.getTarifa() * e.getHoras()
     }
 }
 
-
 class SalarioPorMes implements Salario{
-    constructor(private sueldo: number){}
-    Calculo() {
-        return this.sueldo;
+    constructor(){}
+    Calculo(e : Empleado) {
+        return e.getSueldo();
     }
 }
 
@@ -55,10 +55,17 @@ export class Empleado {
 
 
         if (this.tarifa === 0 && this.sueldo !== 0){
-            this.salario = new SalarioPorMes(this.sueldo);
+            this.salario = new SalarioPorMes();
         }else if (this.sueldo === 0 && this.tarifa !== 0){
-            this.salario = new SalarioPorHora(this.tarifa,this.horas)
+            this.salario = new SalarioPorHora()
         }
+    }
+
+    getTarifa(){
+        return this.tarifa
+    }
+    getSueldo(){
+        return this.sueldo
     }
 
     getHoras(){
@@ -69,7 +76,7 @@ export class Empleado {
         this.tarifa = tarifa;
 
         if (this.salario instanceof SalarioPorHora){
-            this.salario = new SalarioPorHora(this.tarifa,this.horas)
+            this.salario = new SalarioPorHora()
         }
         
         return this;
@@ -78,7 +85,7 @@ export class Empleado {
     setSueldo(sueldo : number){
         this.sueldo = sueldo
         if (this.salario instanceof SalarioPorMes){
-            this.salario = new SalarioPorMes(this.sueldo);
+            this.salario = new SalarioPorMes();
         }
         return this;
     }
@@ -87,17 +94,17 @@ export class Empleado {
         if (this.salario instanceof SalarioPorHora){
             this.setSueldo(this.horas * this.tarifa);
             this.setTarifa(0);
-            this.salario = new SalarioPorMes(this.sueldo);
+            this.salario = new SalarioPorMes();
         }else{
             this.setTarifa(this.sueldo / this.horas)
             this.setSueldo(0);
-            this.salario = new SalarioPorHora(this.tarifa,this.horas);
+            this.salario = new SalarioPorHora();
         }
         return this
     }
 
     CalculoSalarioEmpleado(){
-        return this.salario.Calculo();    
+        return this.salario.Calculo(this);    
     }
 }
 
